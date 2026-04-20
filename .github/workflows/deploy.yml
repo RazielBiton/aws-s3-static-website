@@ -10,17 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      # שדרוג ל-v4 פותר את אזהרת Node.js 20
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4  # שדרוג מ-v3 ל-v4 מעלים את אזהרת Node.js
 
     - name: Configure AWS credentials
-      # שדרוג ל-v4 פותר את אזהרת Node.js 20 ואת ה-set-output הפנימי של אמזון
-      uses: aws-actions/configure-aws-credentials@v4
+      uses: aws-actions/configure-aws-credentials@v4 # שדרוג ל-v4 מעלים את אזהרת set-output
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: eu-north-1
 
     - name: Deploy to S3
-      # שימוש ב-CLI של AWS הוא הדרך הבטוחה והנקייה ביותר
       run: aws s3 sync . s3://${{ secrets.AWS_S3_BUCKET }} --exclude ".github/*"
