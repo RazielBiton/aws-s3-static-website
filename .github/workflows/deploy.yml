@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      # שדרוג מ-v3 ל-v4 (תומך ב-Node.js 24)
+      # שדרוג ל-v4 פותר את אזהרת Node.js 20
       uses: actions/checkout@v4
 
     - name: Configure AWS credentials
-      # שדרוג מ-v1 ל-v4 (תומך ב-Node.js 24)
+      # שדרוג ל-v4 פותר את אזהרת Node.js 20 ואת ה-set-output הפנימי של אמזון
       uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -22,4 +22,5 @@ jobs:
         aws-region: eu-north-1
 
     - name: Deploy to S3
+      # שימוש ב-CLI של AWS הוא הדרך הבטוחה והנקייה ביותר
       run: aws s3 sync . s3://${{ secrets.AWS_S3_BUCKET }} --exclude ".github/*"
